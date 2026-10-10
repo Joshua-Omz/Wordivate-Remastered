@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'features/home_page.dart';
+
 void main() {
   runApp(const WordivateApp());
 }
@@ -15,11 +17,7 @@ class WordivateApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Wordivate'),
-        ),
-      ),
+      home: const HomePage(),
     );
   }
 }
