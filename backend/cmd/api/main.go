@@ -7,8 +7,10 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/Joshua-Omz/wordivate/backend/internal/api/rest"
-	"github.com/Joshua-Omz/wordivate/backend/internal/api/ws"
+	adaptiveRecallRest "github.com/Joshua-Omz/wordivate/backend/internal/features/adaptive_recall/rest"
+	authRest "github.com/Joshua-Omz/wordivate/backend/internal/features/auth/rest"
+	captureRest "github.com/Joshua-Omz/wordivate/backend/internal/features/capture/rest"
+	socraticSessionWS "github.com/Joshua-Omz/wordivate/backend/internal/features/socratic_session/ws"
 )
 
 func main() {
@@ -19,13 +21,13 @@ func main() {
 	r.Use(middleware.RequestID)
 
 	r.Route("/v1", func(r chi.Router) {
-		r.Post("/auth/login", rest.LoginHandler)
+		r.Post("/auth/login", authRest.LoginHandler)
 
-		r.Get("/recall/due", rest.RecallDueHandler)
+		r.Get("/recall/due", adaptiveRecallRest.RecallDueHandler)
 
-		r.Post("/words/commit", rest.WordsCommitHandler)
+		r.Post("/words/commit", captureRest.WordsCommitHandler)
 
-		r.Get("/session/stream", ws.SessionStreamHandler)
+		r.Get("/session/stream", socraticSessionWS.SessionStreamHandler)
 	})
 
 	log.Println("Starting Wordivate API on :8080")
