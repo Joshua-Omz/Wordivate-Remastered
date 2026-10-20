@@ -114,6 +114,78 @@ func (q *Queries) DeleteVocabEntry(ctx context.Context, arg DeleteVocabEntryPara
 	return err
 }
 
+const filterVocabEntries = `-- name: FilterVocabEntries :many
+SELECT id, user_id, word_text, headword_key, sense_key, sense_label, part_of_speech, snapshot_id, official_definition, personal_definition, personal_def_origin, example_sentence, contextual_notes, understanding_flag, discrepancy_note, origin_session_id, created_at, updated_at, search_vector FROM vocab_entries
+WHERE user_id = $1
+  AND ($4::TEXT IS NULL OR part_of_speech = $4)
+  AND ($5::TEXT IS NULL OR understanding_flag = $5)
+  AND ($6::TIMESTAMPTZ IS NULL OR created_at >= $6)
+  AND ($7::TIMESTAMPTZ IS NULL OR created_at <= $7)
+ORDER BY created_at DESC
+LIMIT $2 OFFSET $3
+`
+
+type FilterVocabEntriesParams struct {
+	UserID            uuid.UUID      `json:"user_id"`
+	Limit             int32          `json:"limit"`
+	Offset            int32          `json:"offset"`
+	PartOfSpeech      sql.NullString `json:"part_of_speech"`
+	UnderstandingFlag sql.NullString `json:"understanding_flag"`
+	StartDate         sql.NullTime   `json:"start_date"`
+	EndDate           sql.NullTime   `json:"end_date"`
+}
+
+func (q *Queries) FilterVocabEntries(ctx context.Context, arg FilterVocabEntriesParams) ([]VocabEntry, error) {
+	rows, err := q.db.QueryContext(ctx, filterVocabEntries,
+		arg.UserID,
+		arg.Limit,
+		arg.Offset,
+		arg.PartOfSpeech,
+		arg.UnderstandingFlag,
+		arg.StartDate,
+		arg.EndDate,
+	)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []VocabEntry
+	for rows.Next() {
+		var i VocabEntry
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.WordText,
+			&i.HeadwordKey,
+			&i.SenseKey,
+			&i.SenseLabel,
+			&i.PartOfSpeech,
+			&i.SnapshotID,
+			&i.OfficialDefinition,
+			&i.PersonalDefinition,
+			&i.PersonalDefOrigin,
+			&i.ExampleSentence,
+			&i.ContextualNotes,
+			&i.UnderstandingFlag,
+			&i.DiscrepancyNote,
+			&i.OriginSessionID,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.SearchVector,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getVocabEntriesByWord = `-- name: GetVocabEntriesByWord :many
 SELECT id, user_id, word_text, headword_key, sense_key, sense_label, part_of_speech, snapshot_id, official_definition, personal_definition, personal_def_origin, example_sentence, contextual_notes, understanding_flag, discrepancy_note, origin_session_id, created_at, updated_at, search_vector FROM vocab_entries
 WHERE user_id = $1 AND headword_key = $2

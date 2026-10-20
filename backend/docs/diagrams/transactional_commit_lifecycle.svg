@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 1100" width="1260" height="1100" style="--bg:#1F1F1F;--fg:#CCCCCC;--line:#CCCCCC;--accent:#0078D4;--surface:#181818;--card:#252526;--border:#3E3E42;--muted:#858585;--success:#4EC9B0;--tx-bg:#162432;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  .actor-box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; rx: 6px; }
+  .actor-title { font-size: 13px; font-weight: 700; fill: #FFFFFF; text-anchor: middle; }
+  .actor-sub { font-size: 10px; font-weight: 500; fill: var(--muted); text-anchor: middle; }
+  .lifeline { stroke: #3E3E42; stroke-width: 1; stroke-dasharray: 6 4; }
+  .msg-line { stroke: #CCCCCC; stroke-width: 1.25; }
+  .msg-line-dashed { stroke: #858585; stroke-width: 1.25; stroke-dasharray: 5 4; }
+  .msg-text { font-size: 11px; font-weight: 500; fill: #E0E0E0; }
+  .step-num { font-size: 10px; font-weight: 700; fill: #0078D4; }
+  .note-box { fill: var(--card); stroke: var(--accent); stroke-width: 1; rx: 5px; }
+  .note-text { font-size: 10.5px; font-weight: 600; fill: #9CDCFE; }
+  .tx-box { fill: #132435; fill-opacity: 0.6; stroke: #0078D4; stroke-width: 1.5; rx: 6px; }
+  .tx-badge { fill: #0078D4; rx: 4px; }
+  .tx-badge-text { font-size: 11px; font-weight: 700; fill: #FFFFFF; }
+</style>
+
+<defs>
+  <marker id="arrow" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto-start-reverse">
+    <polygon points="0 0, 9 3, 0 6" fill="#0078D4" />
+  </marker>
+  <marker id="arrow-white" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto-start-reverse">
+    <polygon points="0 0, 9 3, 0 6" fill="#CCCCCC" />
+  </marker>
+  <marker id="arrow-dashed" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto-start-reverse">
+    <polygon points="0 0, 9 3, 0 6" fill="#858585" />
+  </marker>
+  <marker id="arrow-green" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto-start-reverse">
+    <polygon points="0 0, 9 3, 0 6" fill="#4EC9B0" />
+  </marker>
+</defs>
+
+<!-- Header Banner -->
+<rect x="30" y="16" width="1200" height="42" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+<text x="50" y="42" font-size="15" font-weight="700" fill="#FFFFFF">Wordivate Architecture Flow: Transactional Commit &amp; Idempotency Lifecycle</text>
+<text x="1210" y="42" font-size="11" font-weight="500" fill="#4EC9B0" text-anchor="end">Sprint 5 | Section 3.1 Flow</text>
+
+<!-- Lifelines -->
+<line class="lifeline" x1="120" y1="125" x2="120" y2="1030" />
+<line class="lifeline" x1="380" y1="125" x2="380" y2="1030" />
+<line class="lifeline" x1="640" y1="125" x2="640" y2="1030" />
+<line class="lifeline" x1="890" y1="125" x2="890" y2="1030" />
+<line class="lifeline" x1="1140" y1="125" x2="1140" y2="1030" />
+
+<!-- Participant Headers Top -->
+<g transform="translate(45, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Learner</text>
+  <text class="actor-sub" x="75" y="37">Flutter Mobile App</text>
+</g>
+<g transform="translate(305, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Library Handler</text>
+  <text class="actor-sub" x="75" y="37">HTTP &amp; Idempotency</text>
+</g>
+<g transform="translate(565, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Library Service</text>
+  <text class="actor-sub" x="75" y="37">Commit &amp; Evaluation</text>
+</g>
+<g transform="translate(815, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Repository</text>
+  <text class="actor-sub" x="75" y="37">SQLC Transactions</text>
+</g>
+<g transform="translate(1065, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">PostgreSQL</text>
+  <text class="actor-sub" x="75" y="37">sql.Tx Database</text>
+</g>
+
+<!-- STEP 1: Commit Draft Request -->
+<line class="msg-line" x1="120" y1="150" x2="380" y2="150" marker-end="url(#arrow)" />
+<text class="step-num" x="135" y="142">1</text>
+<text class="msg-text" x="155" y="142">POST /v1/sessions/{id}/commit-draft</text>
+
+<!-- STEP 2: GenerateCommitDraft -->
+<line class="msg-line" x1="380" y1="185" x2="640" y2="185" marker-end="url(#arrow)" />
+<text class="step-num" x="395" y="177">2</text>
+<text class="msg-text" x="415" y="177">GenerateCommitDraft(ctx, userID, sessionID)</text>
+
+<!-- STEP 3: Repo Fetch Context -->
+<line class="msg-line" x1="640" y1="220" x2="890" y2="220" marker-end="url(#arrow)" />
+<text class="step-num" x="655" y="212">3</text>
+<text class="msg-text" x="675" y="212">GetSession &amp; GetSessionMessages(sessionID)</text>
+
+<line class="msg-line" x1="890" y1="250" x2="1140" y2="250" marker-end="url(#arrow)" />
+<text class="step-num" x="905" y="242">4</text>
+<text class="msg-text" x="925" y="242">Query transcript &amp; status</text>
+
+<line class="msg-line-dashed" x1="1140" y1="280" x2="640" y2="280" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="655" y="272">5</text>
+<text class="msg-text" x="675" y="272">Session transcript + lexical snapshot</text>
+
+<!-- STEP 4: Return Draft -->
+<line class="msg-line-dashed" x1="640" y1="315" x2="380" y2="315" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="395" y="307">6</text>
+<text class="msg-text" x="415" y="307">Structured Assessment (Verdict, Candidate Personal Def)</text>
+
+<line class="msg-line" x1="380" y1="350" x2="120" y2="350" marker-end="url(#arrow-white)" />
+<text class="step-num" x="135" y="342">7</text>
+<text class="msg-text" x="155" y="342" fill="#4EC9B0">HTTP 200 OK (JSON Assessment Draft)</text>
+
+<!-- NOTE: User review -->
+<rect class="note-box" x="70" y="375" width="280" height="36" />
+<text class="note-text" x="210" y="392" text-anchor="middle">User reviews draft, personal definition,</text>
+<text class="note-text" x="210" y="405" text-anchor="middle" font-size="9.5px" fill="#DCDCAA">and taps Commit (with Idempotency-Key)</text>
+
+<!-- STEP 8: Commit Session POST -->
+<line class="msg-line" x1="120" y1="440" x2="380" y2="440" marker-end="url(#arrow)" />
+<text class="step-num" x="135" y="432">8</text>
+<text class="msg-text" x="155" y="432">POST /v1/sessions/{id}/commit [Header: Idempotency-Key]</text>
+
+<!-- STEP 9: CommitSession -->
+<line class="msg-line" x1="380" y1="475" x2="640" y2="475" marker-end="url(#arrow)" />
+<text class="step-num" x="395" y="467">9</text>
+<text class="msg-text" x="415" y="467">CommitSession(ctx, userID, sessionID, idempKey, req)</text>
+
+<!-- STEP 10: Idempotency Check -->
+<line class="msg-line" x1="640" y1="510" x2="890" y2="510" marker-end="url(#arrow)" />
+<text class="step-num" x="655" y="502">10</text>
+<text class="msg-text" x="675" y="502">GetIdempotencyKey(userID, key) &amp; Check Payload Hash</text>
+
+<!-- TRANSACTION BOX -->
+<g transform="translate(600, 545)">
+  <rect class="tx-box" x="0" y="0" width="580" height="330" />
+  <rect class="tx-badge" x="15" y="10" width="270" height="22" />
+  <text class="tx-badge-text" x="150" y="25" text-anchor="middle">ATOMIC TRANSACTION: sql.Tx (qtx)</text>
+
+  <!-- Tx 1: Insert Vocab Entry -->
+  <line class="msg-line" x1="40" y1="65" x2="290" y2="65" marker-end="url(#arrow)" />
+  <line class="msg-line" x1="290" y1="65" x2="540" y2="65" marker-end="url(#arrow)" />
+  <text class="step-num" x="45" y="57">11a</text>
+  <text class="msg-text" x="65" y="57">1. INSERT INTO vocab_entries (word, official, personal, flag...)</text>
+
+  <!-- Tx 2: Insert Revision 1 -->
+  <line class="msg-line" x1="40" y1="125" x2="290" y2="125" marker-end="url(#arrow)" />
+  <line class="msg-line" x1="290" y1="125" x2="540" y2="125" marker-end="url(#arrow)" />
+  <text class="step-num" x="45" y="117">11b</text>
+  <text class="msg-text" x="65" y="117">2. INSERT INTO entry_revisions (entry_id, rev_no=1, changes JSONB)</text>
+
+  <!-- Tx 3: Insert Commit Assessment -->
+  <line class="msg-line" x1="40" y1="185" x2="290" y2="185" marker-end="url(#arrow)" />
+  <line class="msg-line" x1="290" y1="185" x2="540" y2="185" marker-end="url(#arrow)" />
+  <text class="step-num" x="45" y="177">11c</text>
+  <text class="msg-text" x="65" y="177">3. INSERT INTO commit_assessments (session_id, verdict, note)</text>
+
+  <!-- Tx 4: Link Session -->
+  <line class="msg-line" x1="40" y1="245" x2="290" y2="245" marker-end="url(#arrow)" />
+  <line class="msg-line" x1="290" y1="245" x2="540" y2="245" marker-end="url(#arrow)" />
+  <text class="step-num" x="45" y="237">11d</text>
+  <text class="msg-text" x="65" y="237">4. UPDATE learning_sessions SET status='committed', entry_id=...</text>
+
+  <!-- Tx Commit -->
+  <line class="msg-line" x1="40" y1="295" x2="540" y2="295" stroke="#4EC9B0" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text class="step-num" x="45" y="287" fill="#4EC9B0">11e</text>
+  <text class="msg-text" x="65" y="287" fill="#4EC9B0" font-weight="700">tx.Commit() — All-or-nothing guarantee</text>
+</g>
+
+<!-- STEP 12: Save Idempotency Cache -->
+<line class="msg-line" x1="640" y1="905" x2="890" y2="905" marker-end="url(#arrow)" />
+<text class="step-num" x="655" y="897">12</text>
+<text class="msg-text" x="675" y="897">UpdateIdempotencyResponse(userID, key, cached_bytes)</text>
+
+<!-- STEP 13: Service Return -->
+<line class="msg-line-dashed" x1="640" y1="940" x2="380" y2="940" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="395" y="932">13</text>
+<text class="msg-text" x="415" y="932">CommitSessionResponse (VocabEntry, Assessment, IsDuplicate: false)</text>
+
+<!-- STEP 14: HTTP 201 Created -->
+<line class="msg-line" x1="380" y1="975" x2="120" y2="975" marker-end="url(#arrow-green)" stroke="#4EC9B0" />
+<text class="step-num" x="135" y="967" fill="#4EC9B0">14</text>
+<text class="msg-text" x="155" y="967" fill="#4EC9B0" font-weight="700">HTTP 201 Created (Committed Vocabulary Entry JSON)</text>
+
+<!-- Participant Headers Bottom -->
+<g transform="translate(45, 1010)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Learner</text>
+</g>
+<g transform="translate(305, 1010)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Library Handler</text>
+</g>
+<g transform="translate(565, 1010)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Library Service</text>
+</g>
+<g transform="translate(815, 1010)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Repository</text>
+</g>
+<g transform="translate(1065, 1010)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">PostgreSQL</text>
+</g>
+
+</svg>

@@ -8,9 +8,61 @@ package sqlc
 import (
 	"context"
 	"database/sql"
+	"time"
 
 	"github.com/google/uuid"
 )
+
+const abandonInactiveSessions = `-- name: AbandonInactiveSessions :execrows
+UPDATE learning_sessions
+SET status = 'abandoned',
+    ended_at = now()
+WHERE status = 'active'
+  AND last_active_at < $1
+`
+
+func (q *Queries) AbandonInactiveSessions(ctx context.Context, lastActiveAt time.Time) (int64, error) {
+	result, err := q.db.ExecContext(ctx, abandonInactiveSessions, lastActiveAt)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected()
+}
+
+const abandonSession = `-- name: AbandonSession :one
+UPDATE learning_sessions
+SET status = 'abandoned',
+    ended_at = now(),
+    last_active_at = now()
+WHERE id = $1 AND user_id = $2 AND status = 'active'
+RETURNING id, user_id, entry_id, word_text, headword_key, status, context_note, snapshot_id, prompt_version, model_id, started_at, last_active_at, ended_at
+`
+
+type AbandonSessionParams struct {
+	ID     uuid.UUID `json:"id"`
+	UserID uuid.UUID `json:"user_id"`
+}
+
+func (q *Queries) AbandonSession(ctx context.Context, arg AbandonSessionParams) (LearningSession, error) {
+	row := q.db.QueryRowContext(ctx, abandonSession, arg.ID, arg.UserID)
+	var i LearningSession
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.EntryID,
+		&i.WordText,
+		&i.HeadwordKey,
+		&i.Status,
+		&i.ContextNote,
+		&i.SnapshotID,
+		&i.PromptVersion,
+		&i.ModelID,
+		&i.StartedAt,
+		&i.LastActiveAt,
+		&i.EndedAt,
+	)
+	return i, err
+}
 
 const createSession = `-- name: CreateSession :one
 
@@ -218,6 +270,41 @@ func (q *Queries) ListRecentSessionsByUser(ctx context.Context, arg ListRecentSe
 		return nil, err
 	}
 	return items, nil
+}
+
+const resumeSession = `-- name: ResumeSession :one
+UPDATE learning_sessions
+SET status = 'active',
+    ended_at = NULL,
+    last_active_at = now()
+WHERE id = $1 AND user_id = $2 AND status = 'abandoned'
+RETURNING id, user_id, entry_id, word_text, headword_key, status, context_note, snapshot_id, prompt_version, model_id, started_at, last_active_at, ended_at
+`
+
+type ResumeSessionParams struct {
+	ID     uuid.UUID `json:"id"`
+	UserID uuid.UUID `json:"user_id"`
+}
+
+func (q *Queries) ResumeSession(ctx context.Context, arg ResumeSessionParams) (LearningSession, error) {
+	row := q.db.QueryRowContext(ctx, resumeSession, arg.ID, arg.UserID)
+	var i LearningSession
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.EntryID,
+		&i.WordText,
+		&i.HeadwordKey,
+		&i.Status,
+		&i.ContextNote,
+		&i.SnapshotID,
+		&i.PromptVersion,
+		&i.ModelID,
+		&i.StartedAt,
+		&i.LastActiveAt,
+		&i.EndedAt,
+	)
+	return i, err
 }
 
 const updateSessionLastActive = `-- name: UpdateSessionLastActive :one

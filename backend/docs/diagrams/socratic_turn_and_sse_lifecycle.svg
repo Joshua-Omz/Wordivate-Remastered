@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1380 1260" width="1380" height="1260" style="--bg:#1F1F1F;--fg:#CCCCCC;--line:#CCCCCC;--accent:#0078D4;--accent-subtle:#1E3A5F;--surface:#181818;--card:#252526;--border:#3E3E42;--muted:#858585;--success:#4EC9B0;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  .actor-box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; rx: 6px; }
+  .actor-title { font-size: 13px; font-weight: 700; fill: #FFFFFF; text-anchor: middle; }
+  .actor-sub { font-size: 10px; font-weight: 500; fill: var(--muted); text-anchor: middle; }
+  .lifeline { stroke: #3E3E42; stroke-width: 1; stroke-dasharray: 6 4; }
+  .msg-line { stroke: #CCCCCC; stroke-width: 1.25; }
+  .msg-line-dashed { stroke: #858585; stroke-width: 1.25; stroke-dasharray: 5 4; }
+  .msg-text { font-size: 11px; font-weight: 500; fill: #E0E0E0; }
+  .step-num { font-size: 10px; font-weight: 700; fill: #0078D4; }
+  .note-box { fill: var(--card); stroke: var(--accent); stroke-width: 1; rx: 5px; }
+  .note-text { font-size: 10.5px; font-weight: 600; fill: #9CDCFE; }
+  .loop-box { fill: #1E232A; fill-opacity: 0.55; stroke: #264F78; stroke-width: 1.2; stroke-dasharray: 4 2; rx: 6px; }
+  .loop-badge { fill: #0E639C; rx: 4px; }
+  .loop-badge-text { font-size: 11px; font-weight: 700; fill: #FFFFFF; }
+</style>
+
+<defs>
+  <marker id="arrow" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto-start-reverse">
+    <polygon points="0 0, 9 3, 0 6" fill="#0078D4" />
+  </marker>
+  <marker id="arrow-white" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto-start-reverse">
+    <polygon points="0 0, 9 3, 0 6" fill="#CCCCCC" />
+  </marker>
+  <marker id="arrow-dashed" markerWidth="9" markerHeight="6" refX="9" refY="3" orient="auto-start-reverse">
+    <polygon points="0 0, 9 3, 0 6" fill="#858585" />
+  </marker>
+</defs>
+
+<!-- Title Banner -->
+<rect x="30" y="16" width="1320" height="42" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+<text x="50" y="42" font-size="15" font-weight="700" fill="#FFFFFF">Wordivate Architecture Flow: Socratic Conversational Turn &amp; SSE Real-Time Streaming</text>
+<text x="1330" y="42" font-size="11" font-weight="500" fill="#4EC9B0" text-anchor="end">Sprint 4 | Section 3.1 Flow</text>
+
+<!-- Lifelines -->
+<line class="lifeline" x1="120" y1="125" x2="120" y2="1195" />
+<line class="lifeline" x1="360" y1="125" x2="360" y2="1195" />
+<line class="lifeline" x1="600" y1="125" x2="600" y2="1195" />
+<line class="lifeline" x1="840" y1="125" x2="840" y2="1195" />
+<line class="lifeline" x1="1080" y1="125" x2="1080" y2="1195" />
+<line class="lifeline" x1="1260" y1="125" x2="1260" y2="1195" />
+
+<!-- Participant Headers Top -->
+<g transform="translate(45, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Learner</text>
+  <text class="actor-sub" x="75" y="37">Flutter Mobile App</text>
+</g>
+<g transform="translate(285, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Socratic Handler</text>
+  <text class="actor-sub" x="75" y="37">HTTP &amp; SSE Flusher</text>
+</g>
+<g transform="translate(525, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Socratic Service</text>
+  <text class="actor-sub" x="75" y="37">Tutor Policy &amp; Prompts</text>
+</g>
+<g transform="translate(765, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">Repository</text>
+  <text class="actor-sub" x="75" y="37">SQLC Data Access</text>
+</g>
+<g transform="translate(1005, 75)">
+  <rect class="actor-box" x="0" y="0" width="150" height="48" />
+  <text class="actor-title" x="75" y="21">LLM Client</text>
+  <text class="actor-sub" x="75" y="37">Gemini / Claude API</text>
+</g>
+<g transform="translate(1195, 75)">
+  <rect class="actor-box" x="0" y="0" width="130" height="48" />
+  <text class="actor-title" x="65" y="21">PostgreSQL</text>
+  <text class="actor-sub" x="65" y="37">Database &amp; Schema</text>
+</g>
+
+<!-- STEP 1: Post User Message -->
+<line class="msg-line" x1="120" y1="150" x2="360" y2="150" marker-end="url(#arrow)" />
+<text class="step-num" x="130" y="142">1</text>
+<text class="msg-text" x="145" y="142">POST /v1/sessions/{id}/messages {"content": "I think it means fleeting..."}</text>
+
+<!-- STEP 2: Note over Hdl -->
+<rect class="note-box" x="270" y="170" width="180" height="26" />
+<text class="note-text" x="360" y="187" text-anchor="middle">Verify JWT Bearer &amp; Claims</text>
+
+<!-- STEP 3: PostUserMessage to Svc -->
+<line class="msg-line" x1="360" y1="218" x2="600" y2="218" marker-end="url(#arrow)" />
+<text class="step-num" x="375" y="210">2</text>
+<text class="msg-text" x="390" y="210">PostUserMessage(ctx, userID, sessionID, content)</text>
+
+<!-- STEP 4: GetSessionByID & GetLastMessageSeq -->
+<line class="msg-line" x1="600" y1="255" x2="840" y2="255" marker-end="url(#arrow)" />
+<text class="step-num" x="615" y="247">3</text>
+<text class="msg-text" x="630" y="247">GetSessionByID &amp; GetLastMessageSeq(ctx, sessionID)</text>
+
+<!-- STEP 5: DB Query -->
+<line class="msg-line" x1="840" y1="290" x2="1260" y2="290" marker-end="url(#arrow)" />
+<text class="step-num" x="855" y="282">4</text>
+<text class="msg-text" x="870" y="282">SELECT session, COALESCE(MAX(seq), 0) FROM messages</text>
+
+<!-- STEP 6: DB Return -->
+<line class="msg-line-dashed" x1="1260" y1="325" x2="600" y2="325" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="615" y="318">5</text>
+<text class="msg-text" x="630" y="318">Return active session &amp; last_seq = 0</text>
+
+<!-- STEP 7: Save User Message (seq=1) -->
+<line class="msg-line" x1="600" y1="360" x2="840" y2="360" marker-end="url(#arrow)" />
+<text class="step-num" x="615" y="352">6</text>
+<text class="msg-text" x="630" y="352">CreateMessage(seq=1, role='user', content)</text>
+
+<line class="msg-line" x1="840" y1="395" x2="1260" y2="395" marker-end="url(#arrow)" />
+<text class="step-num" x="855" y="387">7</text>
+<text class="msg-text" x="870" y="387">INSERT INTO messages (session_id, seq=1, role='user', content)</text>
+
+<!-- STEP 8: Fetch Lexical Snapshot -->
+<line class="msg-line" x1="600" y1="435" x2="840" y2="435" marker-end="url(#arrow)" />
+<text class="step-num" x="615" y="427">8</text>
+<text class="msg-text" x="630" y="427">GetSnapshotByID(ctx, snapshot_id)</text>
+
+<line class="msg-line" x1="840" y1="468" x2="1260" y2="468" marker-end="url(#arrow)" />
+<text class="step-num" x="855" y="460">9</text>
+<text class="msg-text" x="870" y="460">SELECT raw_payload FROM definition_snapshots</text>
+
+<line class="msg-line-dashed" x1="1260" y1="500" x2="600" y2="500" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="615" y="493">10</text>
+<text class="msg-text" x="635" y="493">Immutable senses &amp; context returned</text>
+
+<!-- STEP 9: Note over Svc Policy -->
+<rect class="note-box" x="480" y="525" width="240" height="32" />
+<text class="note-text" x="600" y="541" text-anchor="middle">Check Two-Strike Rule (Failures &lt; 2)</text>
+<text class="note-text" x="600" y="552" text-anchor="middle" font-size="9.5px" fill="#DCDCAA">Render Embedded Prompt template v1.0</text>
+
+<!-- STEP 10: Call LLM StreamChat -->
+<line class="msg-line" x1="600" y1="585" x2="1080" y2="585" marker-end="url(#arrow)" />
+<text class="step-num" x="615" y="577">11</text>
+<text class="msg-text" x="635" y="577">StreamChat(ctx, SocraticRequest{Word, Context, History})</text>
+
+<!-- STEP 11: Channels Handshake -->
+<line class="msg-line-dashed" x1="1080" y1="620" x2="600" y2="620" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="615" y="612">12</text>
+<text class="msg-text" x="635" y="612">&lt;-chan StreamEvent (tokens channel initialized)</text>
+
+<line class="msg-line-dashed" x1="600" y1="655" x2="360" y2="655" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="375" y="647">13</text>
+<text class="msg-text" x="395" y="647">Handover event channel to handler</text>
+
+<line class="msg-line" x1="360" y1="690" x2="120" y2="690" marker-end="url(#arrow-white)" />
+<text class="step-num" x="135" y="682">14</text>
+<text class="msg-text" x="155" y="682" fill="#4EC9B0">HTTP 200 OK (Content-Type: text/event-stream; X-Accel-Buffering: no)</text>
+
+<!-- LOOP BLOCK: Real-time SSE Token Streaming -->
+<g transform="translate(60, 720)">
+  <rect class="loop-box" x="0" y="0" width="1070" height="235" />
+  <rect class="loop-badge" x="10" y="10" width="170" height="22" />
+  <text class="loop-badge-text" x="95" y="25" text-anchor="middle">LOOP: Real-Time Tokens</text>
+  
+  <!-- LLM -> Svc -->
+  <line class="msg-line" x1="1020" y1="65" x2="540" y2="65" marker-end="url(#arrow)" />
+  <text class="step-num" x="555" y="57">15a</text>
+  <text class="msg-text" x="580" y="57">StreamEvent{Token: "Ephemeral ", Type: "token"}</text>
+
+  <!-- Svc -> Hdl -->
+  <line class="msg-line" x1="540" y1="105" x2="300" y2="105" marker-end="url(#arrow)" />
+  <text class="step-num" x="315" y="97">15b</text>
+  <text class="msg-text" x="340" y="97">Forward token event on channel</text>
+
+  <!-- Hdl -> Client (SSE) -->
+  <line class="msg-line" x1="300" y1="148" x2="60" y2="148" marker-end="url(#arrow-white)" />
+  <text class="step-num" x="75" y="140">15c</text>
+  <text class="msg-text" x="100" y="140" fill="#9CDCFE">data: {"type":"token","token":"Ephemeral ","seq":2}\n\n</text>
+
+  <!-- Flush Note -->
+  <rect class="note-box" x="220" y="175" width="160" height="26" stroke="#4EC9B0" />
+  <text class="note-text" x="300" y="192" text-anchor="middle" fill="#4EC9B0">flusher.Flush() immediately</text>
+</g>
+
+<!-- STEP 16: Stream Finished -->
+<line class="msg-line-dashed" x1="1080" y1="985" x2="600" y2="985" marker-end="url(#arrow-dashed)" />
+<text class="step-num" x="615" y="977">16</text>
+<text class="msg-text" x="635" y="977">LLM Stream EOF / Closed</text>
+
+<!-- STEP 17: Save Assistant Message -->
+<line class="msg-line" x1="600" y1="1020" x2="840" y2="1020" marker-end="url(#arrow)" />
+<text class="step-num" x="615" y="1012">17</text>
+<text class="msg-text" x="635" y="1012">CreateMessage(seq=2, role='assistant', fullText)</text>
+
+<line class="msg-line" x1="840" y1="1055" x2="1260" y2="1055" marker-end="url(#arrow)" />
+<text class="step-num" x="855" y="1047">18</text>
+<text class="msg-text" x="875" y="1047">INSERT INTO messages (seq=2, role='assistant', content)</text>
+
+<!-- STEP 18: Emit Done Event -->
+<line class="msg-line" x1="600" y1="1090" x2="360" y2="1090" marker-end="url(#arrow)" />
+<text class="step-num" x="375" y="1082">19</text>
+<text class="msg-text" x="395" y="1082">StreamEvent{Type: "done", Done: true, Seq: 2}</text>
+
+<line class="msg-line" x1="360" y1="1125" x2="120" y2="1125" marker-end="url(#arrow-white)" />
+<text class="step-num" x="135" y="1117">20</text>
+<text class="msg-text" x="155" y="1117" fill="#4EC9B0">event: done | data: {"type":"done","done":true,"seq":2}\n\n</text>
+
+<!-- Participant Headers Bottom -->
+<g transform="translate(45, 1175)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Learner</text>
+</g>
+<g transform="translate(285, 1175)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Socratic Handler</text>
+</g>
+<g transform="translate(525, 1175)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Socratic Service</text>
+</g>
+<g transform="translate(765, 1175)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">Repository</text>
+</g>
+<g transform="translate(1005, 1175)">
+  <rect class="actor-box" x="0" y="0" width="150" height="42" />
+  <text class="actor-title" x="75" y="26">LLM Client</text>
+</g>
+<g transform="translate(1195, 1175)">
+  <rect class="actor-box" x="0" y="0" width="130" height="42" />
+  <text class="actor-title" x="65" y="26">PostgreSQL</text>
+</g>
+
+</svg>

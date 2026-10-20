@@ -34,6 +34,16 @@ Before taking action, the agent must explicitly state its understanding in this 
 3. Do not guess at missing requirements; explicitly name any necessary assumptions.
 4. If the user's wording suggests one category but the work is another (e.g., a "quick fix" that is actually a new architectural feature), state the re-classification before continuing.
 
+### 2.1 Mandatory Pre-Execution Planning in an Artifact Gate
+Before taking modifying actions, applying file edits, running generative migrations, or writing code (especially for BUG FIX, PATCH, and ADD-ON tasks), the agent MUST author a comprehensive plan in an **Artifact** (e.g. `implementation_plan.md` or `<feature>_plan.md`):
+- **Required Plan Structure:**
+  1. **Task Intent & Scope:** Clear boundaries, affected files, and dependencies.
+  2. **Systems Foundation & Architectural Rationale:** Why the proposed design solves the problem at the systems/domain level.
+  3. **Phased Execution Steps:** Chronological, step-by-step implementation order (interfaces -> models -> database queries -> service logic -> handlers -> tests).
+  4. **Drawbacks & Trade-offs:** Explicit analysis of performance, memory, race conditions, or scalability limitations.
+  5. **Verification & Testing Strategy:** Concrete test cases, unit test commands, and expected status codes.
+- **Execution Gate:** No file modification or generative action may proceed until the planning artifact has been generated and presented.
+
 ---
 
 ## 3. Session Discipline (Single-Task Lock)
@@ -62,10 +72,11 @@ A backend implementation task (whether BUG FIX, PATCH, or ADD-ON) is **NOT compl
   - `backend/docs/lexical/` — Dictionary APIs, normalization, hashing, and immutable snapshots.
   - `backend/docs/socratic/` — Session lifecycle, prompt versioning, SSE streaming, and tutor policies.
   - `backend/docs/commit_library/` — Atomic transactions, idempotency keys, and full-text search.
+- **Secluded Diagram Storage (`backend/docs/diagrams/`):** All visual architecture diagrams and flow illustrations must be stored in a dedicated secluded folder (`backend/docs/diagrams/` or `backend/docs/<subject-matter>/diagrams/`) rather than scattered across documentation roots.
 - **Required Content per Doc:**
   1. **Concept & Systems 'Why':** The engineering problem being solved.
   2. **Go Implementation Deep-Dive:** Pointers, interfaces, concurrency, or standard library features applied.
-  3. **Architecture & Flow:** Mermaid diagrams or request-response lifecycle.
+  3. **Architecture & Visual Flow:** Standalone visual illustrations (e.g. SVG assets) drafted using the `diagram-illustrator` skill, replacing raw inline Mermaid code blocks. Embed them via standard markdown image links (`![Diagram Description](./diagrams/<name>.svg)`) with crisp textual step-by-step walkthroughs.
   4. **Verification & Testing:** Concrete instructions and curl/CLI commands to test the component.
 
 ---

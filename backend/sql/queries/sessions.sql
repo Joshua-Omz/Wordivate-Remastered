@@ -52,3 +52,27 @@ SELECT * FROM learning_sessions
 WHERE user_id = $1
 ORDER BY last_active_at DESC
 LIMIT $2;
+
+-- name: AbandonInactiveSessions :execrows
+UPDATE learning_sessions
+SET status = 'abandoned',
+    ended_at = now()
+WHERE status = 'active'
+  AND last_active_at < $1;
+
+-- name: AbandonSession :one
+UPDATE learning_sessions
+SET status = 'abandoned',
+    ended_at = now(),
+    last_active_at = now()
+WHERE id = $1 AND user_id = $2 AND status = 'active'
+RETURNING *;
+
+-- name: ResumeSession :one
+UPDATE learning_sessions
+SET status = 'active',
+    ended_at = NULL,
+    last_active_at = now()
+WHERE id = $1 AND user_id = $2 AND status = 'abandoned'
+RETURNING *;
+

@@ -28,55 +28,22 @@ Users input words in varied casings, with accidental whitespace or punctuation:
 
 ## 2. 4-Tier Clean Architecture Request Flow
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Client as Flutter Client
-    participant Hdl as Capture Handler (handler.go)
-    participant Svc as Capture Service (service.go)
-    participant Dict as Dictionary Client (dictionary.go)
-    participant Repo as Capture Repository (repository.go)
-    participant DB as Data Access (sqlc / PostgreSQL)
+![Word Capture & Lexical Lookup Flow](../diagrams/capture_feature_flow.svg)
 
-    %% Word Lookup Flow
-    Note over Client, DB: 1. Lexical Lookup Flow
-    Client->>Hdl: GET /v1/words/lookup?word=ephemeral
-    Hdl->>Svc: LookupWord(ctx, "ephemeral")
-    Note over Svc: Normalization: trim, lowercase, length checks
-    Svc->>Dict: FetchDefinition(ctx, "ephemeral")
-    Dict-->>Svc: DefinitionResult (Meanings, Senses, RawJSON)
-    Note over Svc: Compute SHA-256 digest of RawJSON
-    Svc->>Repo: GetOrCreateSnapshot(headword, source, payload, hash)
-    Repo->>DB: q.CreateDefinitionSnapshot(...)
-    DB-->>Repo: DefinitionSnapshot record
-    Repo-->>Svc: Domain DefinitionSnapshot (UUID)
-    Svc-->>Hdl: LookupResponse (senses, phonetic, snapshot_id)
-    Hdl-->>Client: HTTP 200 OK (JSON)
-
-    %% Session Capture Flow
-    Note over Client, DB: 2. Socratic Session Initialization
-    Client->>Hdl: POST /v1/sessions {"word_text":"ephemeral", "context_note":"reading book"}
-    Hdl->>Svc: StartSession(ctx, userID, req)
-    Svc->>Repo: GetExistingEntriesByWord(ctx, userID, "ephemeral")
-    Repo->>DB: q.GetVocabEntriesByWord(...)
-    DB-->>Repo: []VocabEntry (Check for duplicates)
-    Svc->>Repo: GetActiveSessionForWord(ctx, userID, "ephemeral")
-    Repo->>DB: q.GetActiveSessionByWord(...)
-    alt Active Session Exists
-        DB-->>Repo: Active Session
-        Repo-->>Svc: Domain LearningSession
-        Svc-->>Hdl: StartSessionResponse (is_resumed: true)
-        Hdl-->>Client: HTTP 200 OK
-    else No Active Session
-        DB-->>Repo: sql.ErrNoRows (ErrNotFound)
-        Svc->>Repo: CreateSession(ctx, params...)
-        Repo->>DB: q.CreateSession(...)
-        DB-->>Repo: New LearningSession (status='active')
-        Repo-->>Svc: Domain LearningSession
-        Svc-->>Hdl: StartSessionResponse (is_resumed: false)
-        Hdl-->>Client: HTTP 201 Created
-    end
-```
+#### Step-by-Step Architectural Walkthrough:
+1. **Lexical Lookup Flow:**
+   - Client sends `GET /v1/words/lookup?word=ephemeral`.
+   - Service normalizes the word (trimming whitespace, lowercasing, validating length).
+   - Dictionary client calls external provider with a 5-second context timeout.
+   - Service hashes the raw JSON response using SHA-256 (`content_hash`).
+   - Repository saves or retrieves the immutable `definition_snapshots` record.
+   - Handler returns phonetic details and structured senses to the client.
+2. **Socratic Session Initialization Flow:**
+   - Client submits `POST /v1/sessions` with word text and context note.
+   - Service checks for existing library entries (`vocab_entries`) to inform the user of prior commits.
+   - Service inspects database for active sessions for that word (`one_active_session_per_word`).
+   - If an active session exists, it idempotently returns the existing session (`is_resumed: true`, HTTP 200).
+   - If no active session exists, a new session is created with `status = 'active'` (HTTP 201 Created).
 
 ---
 

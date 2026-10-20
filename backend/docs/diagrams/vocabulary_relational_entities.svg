@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 860" width="1420" height="860" style="--bg:#1F1F1F;--fg:#CCCCCC;--line:#858585;--accent:#0078D4;--surface:#181818;--card:#252526;--border:#3E3E42;--muted:#858585;--pk:#DCDCAA;--fk:#9CDCFE;--type:#4EC9B0;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  .entity-card { fill: var(--card); stroke: var(--border); stroke-width: 1.25; rx: 6px; }
+  .entity-header { fill: var(--surface); stroke: var(--border); stroke-width: 1.25; rx: 6px; }
+  .entity-title { font-size: 13px; font-weight: 700; fill: #FFFFFF; }
+  .field-name { font-size: 11px; font-weight: 500; fill: #E0E0E0; }
+  .field-badge-pk { font-size: 9px; font-weight: 700; fill: #DCDCAA; }
+  .field-badge-fk { font-size: 9px; font-weight: 700; fill: #9CDCFE; }
+  .field-type { font-size: 10px; font-weight: 400; fill: #4EC9B0; text-anchor: end; }
+  .rel-line { stroke: #6E7681; stroke-width: 1.5; fill: none; }
+  .rel-text { font-size: 10.5px; font-weight: 600; fill: #CCCCCC; }
+  .rel-badge { fill: var(--surface); stroke: var(--border); stroke-width: 1; rx: 4px; }
+</style>
+
+<defs>
+  <marker id="crow-foot" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto-start-reverse">
+    <path d="M 0,0 L 10,5 L 0,10 M 10,0 L 10,10" fill="none" stroke="#6E7681" stroke-width="1.2" />
+  </marker>
+  <marker id="one-one" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto-start-reverse">
+    <line x1="5" y1="0" x2="5" y2="10" stroke="#6E7681" stroke-width="1.2" />
+    <line x1="8" y1="0" x2="8" y2="10" stroke="#6E7681" stroke-width="1.2" />
+  </marker>
+</defs>
+
+<!-- Header Banner -->
+<rect x="30" y="16" width="1360" height="42" rx="6" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+<text x="50" y="42" font-size="15" font-weight="700" fill="#FFFFFF">Wordivate Relational Schema: Entity-Relationship &amp; Foreign Key Architecture</text>
+<text x="1370" y="42" font-size="11" font-weight="500" fill="#4EC9B0" text-anchor="end">Sprint 5 | Section 3.2 Relational Model</text>
+
+<!-- 1. ENTITY: users -->
+<g transform="translate(50, 90)">
+  <rect class="entity-card" x="0" y="0" width="280" height="170" />
+  <rect class="entity-header" x="0" y="0" width="280" height="34" />
+  <text class="entity-title" x="14" y="22">users</text>
+  
+  <text class="field-badge-pk" x="14" y="55">PK</text>
+  <text class="field-name" x="38" y="55">id</text>
+  <text class="field-type" x="266" y="55">UUID</text>
+  
+  <text class="field-name" x="38" y="82">email</text>
+  <text class="field-type" x="266" y="82">VARCHAR(255)</text>
+
+  <text class="field-name" x="38" y="109">password_hash</text>
+  <text class="field-type" x="266" y="109">TEXT</text>
+
+  <text class="field-name" x="38" y="136">created_at</text>
+  <text class="field-type" x="266" y="136">TIMESTAMPTZ</text>
+</g>
+
+<!-- 2. ENTITY: idempotency_keys -->
+<g transform="translate(50, 310)">
+  <rect class="entity-card" x="0" y="0" width="280" height="195" />
+  <rect class="entity-header" x="0" y="0" width="280" height="34" />
+  <text class="entity-title" x="14" y="22">idempotency_keys</text>
+
+  <text class="field-badge-pk" x="14" y="55">PK</text>
+  <text class="field-name" x="38" y="55">key</text>
+  <text class="field-type" x="266" y="55">VARCHAR(255)</text>
+
+  <text class="field-badge-fk" x="14" y="82">FK</text>
+  <text class="field-name" x="38" y="82">user_id</text>
+  <text class="field-type" x="266" y="82">UUID</text>
+
+  <text class="field-name" x="38" y="109">request_hash</text>
+  <text class="field-type" x="266" y="109">BYTEA</text>
+
+  <text class="field-name" x="38" y="136">response</text>
+  <text class="field-type" x="266" y="136">BYTEA</text>
+
+  <text class="field-name" x="38" y="163">expires_at</text>
+  <text class="field-type" x="266" y="163">TIMESTAMPTZ</text>
+</g>
+
+<!-- 3. ENTITY: definition_snapshots -->
+<g transform="translate(50, 560)">
+  <rect class="entity-card" x="0" y="0" width="300" height="220" />
+  <rect class="entity-header" x="0" y="0" width="300" height="34" />
+  <text class="entity-title" x="14" y="22">definition_snapshots</text>
+
+  <text class="field-badge-pk" x="14" y="55">PK</text>
+  <text class="field-name" x="38" y="55">id</text>
+  <text class="field-type" x="286" y="55">UUID</text>
+
+  <text class="field-name" x="38" y="82">source</text>
+  <text class="field-type" x="286" y="82">TEXT</text>
+
+  <text class="field-name" x="38" y="109">headword_key</text>
+  <text class="field-type" x="286" y="109">TEXT</text>
+
+  <text class="field-name" x="38" y="136">content_hash</text>
+  <text class="field-type" x="286" y="136">BYTEA</text>
+
+  <text class="field-name" x="38" y="163">raw_payload</text>
+  <text class="field-type" x="286" y="163">JSONB</text>
+
+  <text class="field-name" x="38" y="190">created_at</text>
+  <text class="field-type" x="286" y="190">TIMESTAMPTZ</text>
+</g>
+
+<!-- 4. ENTITY: learning_sessions -->
+<g transform="translate(420, 90)">
+  <rect class="entity-card" x="0" y="0" width="340" height="255" />
+  <rect class="entity-header" x="0" y="0" width="340" height="34" />
+  <text class="entity-title" x="14" y="22">learning_sessions</text>
+
+  <text class="field-badge-pk" x="14" y="55">PK</text>
+  <text class="field-name" x="38" y="55">id</text>
+  <text class="field-type" x="326" y="55">UUID</text>
+
+  <text class="field-badge-fk" x="14" y="82">FK</text>
+  <text class="field-name" x="38" y="82">user_id</text>
+  <text class="field-type" x="326" y="82">UUID</text>
+
+  <text class="field-name" x="38" y="109">headword_key</text>
+  <text class="field-type" x="326" y="109">TEXT</text>
+
+  <text class="field-badge-fk" x="14" y="136">FK</text>
+  <text class="field-name" x="38" y="136">snapshot_id</text>
+  <text class="field-type" x="326" y="136">UUID</text>
+
+  <text class="field-name" x="38" y="163">status</text>
+  <text class="field-type" x="326" y="163">VARCHAR(32)</text>
+
+  <text class="field-badge-fk" x="14" y="190">FK</text>
+  <text class="field-name" x="38" y="190">entry_id (nullable)</text>
+  <text class="field-type" x="326" y="190">UUID</text>
+
+  <text class="field-name" x="38" y="217">created_at</text>
+  <text class="field-type" x="326" y="217">TIMESTAMPTZ</text>
+</g>
+
+<!-- 5. ENTITY: commit_assessments -->
+<g transform="translate(420, 410)">
+  <rect class="entity-card" x="0" y="0" width="340" height="195" />
+  <rect class="entity-header" x="0" y="0" width="340" height="34" />
+  <text class="entity-title" x="14" y="22">commit_assessments</text>
+
+  <text class="field-badge-pk" x="14" y="55">PK,FK</text>
+  <text class="field-name" x="48" y="55">session_id</text>
+  <text class="field-type" x="326" y="55">UUID</text>
+
+  <text class="field-name" x="48" y="82">verdict</text>
+  <text class="field-type" x="326" y="82">VARCHAR(32)</text>
+
+  <text class="field-name" x="48" y="109">discrepancy_note</text>
+  <text class="field-type" x="326" y="109">TEXT</text>
+
+  <text class="field-name" x="48" y="136">raw_output</text>
+  <text class="field-type" x="326" y="136">JSONB</text>
+
+  <text class="field-name" x="48" y="163">assessed_at</text>
+  <text class="field-type" x="326" y="163">TIMESTAMPTZ</text>
+</g>
+
+<!-- 6. ENTITY: vocab_entries -->
+<g transform="translate(850, 90)">
+  <rect class="entity-card" x="0" y="0" width="360" height="330" />
+  <rect class="entity-header" x="0" y="0" width="360" height="34" stroke="#0078D4" />
+  <circle cx="20" cy="17" r="5" fill="#0078D4" />
+  <text class="entity-title" x="35" y="22">vocab_entries (Core Domain)</text>
+
+  <text class="field-badge-pk" x="14" y="55">PK</text>
+  <text class="field-name" x="38" y="55">id</text>
+  <text class="field-type" x="346" y="55">UUID</text>
+
+  <text class="field-badge-fk" x="14" y="82">FK</text>
+  <text class="field-name" x="38" y="82">user_id</text>
+  <text class="field-type" x="346" y="82">UUID</text>
+
+  <text class="field-name" x="38" y="109">word_text</text>
+  <text class="field-type" x="346" y="109">TEXT</text>
+
+  <text class="field-name" x="38" y="136">headword_key</text>
+  <text class="field-type" x="346" y="136">TEXT</text>
+
+  <text class="field-name" x="38" y="163">official_definition</text>
+  <text class="field-type" x="346" y="163">TEXT</text>
+
+  <text class="field-name" x="38" y="190">personal_definition</text>
+  <text class="field-type" x="346" y="190">TEXT</text>
+
+  <text class="field-name" x="38" y="217">personal_def_origin</text>
+  <text class="field-type" x="346" y="217">VARCHAR(32)</text>
+
+  <text class="field-name" x="38" y="244">understanding_flag</text>
+  <text class="field-type" x="346" y="244">VARCHAR(32)</text>
+
+  <text class="field-name" x="38" y="271">search_vector</text>
+  <text class="field-type" x="346" y="271">TSVECTOR</text>
+
+  <text class="field-name" x="38" y="298">created_at</text>
+  <text class="field-type" x="346" y="298">TIMESTAMPTZ</text>
+</g>
+
+<!-- 7. ENTITY: entry_revisions -->
+<g transform="translate(850, 500)">
+  <rect class="entity-card" x="0" y="0" width="360" height="200" />
+  <rect class="entity-header" x="0" y="0" width="360" height="34" />
+  <text class="entity-title" x="14" y="22">entry_revisions (Audit Log)</text>
+
+  <text class="field-badge-pk" x="14" y="55">PK</text>
+  <text class="field-name" x="38" y="55">id</text>
+  <text class="field-type" x="346" y="55">UUID</text>
+
+  <text class="field-badge-fk" x="14" y="82">FK</text>
+  <text class="field-name" x="38" y="82">entry_id</text>
+  <text class="field-type" x="346" y="82">UUID</text>
+
+  <text class="field-name" x="38" y="109">rev_no</text>
+  <text class="field-type" x="346" y="109">INT</text>
+
+  <text class="field-name" x="38" y="136">changes</text>
+  <text class="field-type" x="346" y="136">JSONB</text>
+
+  <text class="field-name" x="38" y="163">changed_at</text>
+  <text class="field-type" x="346" y="163">TIMESTAMPTZ</text>
+</g>
+
+<!-- RELATIONSHIP LINES -->
+
+<!-- users (1) -> learning_sessions (N) -->
+<path class="rel-line" d="M 330,160 L 420,160" marker-start="url(#one-one)" marker-end="url(#crow-foot)" />
+<rect class="rel-badge" x="345" y="145" width="60" height="20" />
+<text class="rel-text" x="375" y="159" text-anchor="middle">owns</text>
+
+<!-- users (1) -> idempotency_keys (N) -->
+<path class="rel-line" d="M 190,260 L 190,310" marker-start="url(#one-one)" marker-end="url(#crow-foot)" />
+<rect class="rel-badge" x="160" y="272" width="60" height="20" />
+<text class="rel-text" x="190" y="286" text-anchor="middle">tracks</text>
+
+<!-- users (1) -> vocab_entries (N) -->
+<path class="rel-line" d="M 190,90 L 190,75 L 1030,75 L 1030,90" marker-start="url(#one-one)" marker-end="url(#crow-foot)" />
+<rect class="rel-badge" x="580" y="65" width="60" height="20" />
+<text class="rel-text" x="610" y="79" text-anchor="middle">owns</text>
+
+<!-- learning_sessions (1) -> vocab_entries (1) -->
+<path class="rel-line" d="M 760,200 L 850,200" marker-start="url(#one-one)" marker-end="url(#one-one)" />
+<rect class="rel-badge" x="772" y="185" width="65" height="20" />
+<text class="rel-text" x="804" y="199" text-anchor="middle">produces</text>
+
+<!-- learning_sessions (1) -> commit_assessments (1) -->
+<path class="rel-line" d="M 590,345 L 590,410" marker-start="url(#one-one)" marker-end="url(#one-one)" />
+<rect class="rel-badge" x="558" y="365" width="65" height="20" />
+<text class="rel-text" x="590" y="379" text-anchor="middle">evaluates</text>
+
+<!-- vocab_entries (1) -> entry_revisions (N) -->
+<path class="rel-line" d="M 1030,420 L 1030,500" marker-start="url(#one-one)" marker-end="url(#crow-foot)" />
+<rect class="rel-badge" x="1000" y="448" width="60" height="20" />
+<text class="rel-text" x="1030" y="462" text-anchor="middle">audits</text>
+
+<!-- definition_snapshots (1) -> vocab_entries (N) -->
+<path class="rel-line" d="M 350,670 L 780,670 L 780,260 L 850,260" marker-start="url(#one-one)" marker-end="url(#crow-foot)" />
+<rect class="rel-badge" x="745" y="460" width="70" height="20" />
+<text class="rel-text" x="780" y="474" text-anchor="middle">grounds</text>
+
+</svg>

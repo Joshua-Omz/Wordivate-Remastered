@@ -34,6 +34,12 @@ This document defines the sequential sprint plan for implementing the Wordivate 
 +-------------------------------------------------------------------------+
 | Sprint 5: Transactional Commit, Idempotency, & Vocabulary Library       |
 | -> Atomic Commit Tx, Idempotency-Key, Personal Library, Full-Text Search|
++------------------------------------+------------------------------------+
+                                     |
+                                     v
++-------------------------------------------------------------------------+
+| Sprint 6: Adaptive Recall & Spaced Repetition (SRS) Engine              |
+| -> SM-2 Algorithm, Due Words Queue, Review Evaluations, Audit History  |
 +-------------------------------------------------------------------------+
 ```
 
@@ -99,7 +105,8 @@ This document defines the sequential sprint plan for implementing the Wordivate 
 
 ---
 
-### Sprint 4: Socratic Conversation Engine & Real-Time Streaming
+### Sprint 4: Socratic Conversation Engine & Real-Time Streaming [COMPLETED]
+* **Documentation:** [`backend/docs/socratic/socratic_engine_and_sse.md`](./backend/docs/socratic/socratic_engine_and_sse.md)
 * **Objective:** Implement the adaptive tutor engine, session state machine, and real-time streaming transport.
 * **SRS Anchors:** Section 3.2 (Learning Session FR-010 – FR-018), Section 6 (AI Policy AI-001 – AI-008), Section 8.2.
 * **Deliverables:**
@@ -115,11 +122,12 @@ This document defines the sequential sprint plan for implementing the Wordivate 
   - Go concurrency patterns: goroutines, channels, and context cancellation (`ctx.Done()`).
   - Server-Sent Events (SSE) implementation using Go's `http.Flusher` without external dependencies.
   - Structured prompt engineering and state machine modeling in Go.
-* **Acceptance Criteria:** User message is persisted durably, assistant reply streams via SSE, and tutor enforces Socratic behavior without false confirmations.
+* **Acceptance Criteria:** User message is persisted durably, assistant reply streams via SSE, and tutor enforces Socratic behavior without false confirmations. [VERIFIED]
 
 ---
 
-### Sprint 5: Transactional Commit, Idempotency, & Vocabulary Library
+### Sprint 5: Transactional Commit, Idempotency, & Vocabulary Library [COMPLETED]
+* **Documentation:** [`backend/docs/commit_library/commit_and_vocabulary_library.md`](./backend/docs/commit_library/commit_and_vocabulary_library.md)
 * **Objective:** Implement the atomic commit process, personal definition provenance validation, and the persistent vocabulary library.
 * **SRS Anchors:** Section 3.3 (Commit FR-020 – FR-027), Section 3.4 (Library FR-030 – FR-036), Section 7.4.
 * **Deliverables:**
@@ -138,7 +146,34 @@ This document defines the sequential sprint plan for implementing the Wordivate 
   - Managing PostgreSQL transactions (`BEGIN`, `COMMIT`, `ROLLBACK`) safely in Go using `defer`.
   - Idempotent API design in distributed systems.
   - PostgreSQL full-text search (`tsvector`, `tsquery`, `setweight`) in Go.
-* **Acceptance Criteria:** Committing a word executes atomically; repeated commit requests return the identical record without duplication; library search returns weighted results in < 500 ms (NFR-P3).
+* **Acceptance Criteria:** Committing a word executes atomically; repeated commit requests return the identical record without duplication; library search returns weighted results in < 500 ms (NFR-P3). [VERIFIED]
+
+---
+
+### Sprint 6: Adaptive Recall & Spaced Repetition (SRS) Engine [COMPLETED]
+* **Documentation:** [`backend/docs/recall/adaptive_recall_engine.md`](./backend/docs/recall/adaptive_recall_engine.md)
+* **Objective:** Implement the spaced repetition engine (SM-2 variant), multi-tenant queue, review evaluations, and Clean Architecture decoupling.
+* **SRS Anchors:** Section 3.6 (Recall & Use FR-050 – FR-054), Section 7.4.
+* **Deliverables:**
+  1. `backend/sql/schema/002_recall.sql`:
+     - Relational tables: `recall_schedules` (1:1 with `vocab_entries`) and `recall_reviews` (audit log).
+     - Indexes: `recall_user_due (user_id, next_review_at ASC)` and `recall_reviews_entry`.
+  2. `backend/sql/queries/recall.sql`:
+     - Queries for due words retrieval, schedule upserts, review event logging, and lazy schedule seeding.
+  3. `backend/internal/features/recall/`:
+     - `models.go`: Domain models for due words, review submissions, and review results.
+     - `repository.go`: Decoupled Clean Architecture persistence interface.
+     - `service.go`: SM-2 algorithm implementation with ease factor clamping ($EF \ge 1.30$), interval expansion, and multi-tenant security verification.
+     - `handler.go`: HTTP endpoints `GET /v1/recall/due` and `POST /v1/recall/reviews`.
+     - `service_test.go` and `handler_test.go`: Unit test suite (>90% service coverage, 100% handler coverage).
+  4. Visual Architecture Flow:
+     - [`backend/docs/diagrams/recall_spaced_repetition_flow.svg`](./backend/docs/diagrams/recall_spaced_repetition_flow.svg)
+* **Mentorship & Learning Focus:**
+  - Cognitive science of spaced retrieval practice (Ebbinghaus forgetting curve).
+  - SuperMemo-2 mathematical modeling and floating-point rounding safety in Go.
+  - Eliminating architectural violations via the Repository Pattern in Clean Architecture.
+  - Zero-worker lazy on-demand seeding vs background worker queues.
+* **Acceptance Criteria:** Due words queue returns entries ordered by urgency; review submissions calculate next review via SM-2 and update schedule atomically; whole test suite passes with zero regressions. [VERIFIED]
 
 ---
 

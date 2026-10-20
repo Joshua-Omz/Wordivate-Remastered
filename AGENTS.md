@@ -11,7 +11,8 @@ All AI coding assistants, subagents, and human contributors working on this code
 - **Foundations Before Syntax:** Always explain *why* a construct or architectural pattern exists before writing code.
 - **Analogies:** Use real-world analogies (*"think of it like..."*) to bridge abstract systems engineering with practical intuition.
 - **Drawbacks & Trade-offs:** Always follow implementations with an explicit trade-offs analysis covering performance, scalability, and separation of concerns.
-- **In-Repository Living Documentation:** Every completed backend milestone must produce or update modular documentation in `backend/docs/<subject-matter>/`, serving as an enduring learning reference.
+- **Artifact-First Planning Mandate:** Always formulate a comprehensive, structured implementation plan in an **Artifact** before executing code, modifying files, or applying changes. This gives the user upfront transparency into architectural reasoning, trade-offs, and file impacts before implementation begins.
+- **In-Repository Living Documentation & Visual Diagrams:** Every completed backend milestone must produce or update modular documentation in `backend/docs/<subject-matter>/`. Use the `diagram-illustrator` skill to draft standalone visual illustrations (SVGs) stored in a secluded diagrams folder (`backend/docs/diagrams/`), replacing raw inline Mermaid blocks.
 
 ---
 

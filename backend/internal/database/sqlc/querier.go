@@ -6,11 +6,14 @@ package sqlc
 
 import (
 	"context"
+	"time"
 
 	"github.com/google/uuid"
 )
 
 type Querier interface {
+	AbandonInactiveSessions(ctx context.Context, lastActiveAt time.Time) (int64, error)
+	AbandonSession(ctx context.Context, arg AbandonSessionParams) (LearningSession, error)
 	// Purpose: Commit-time AI assessment queries.
 	// Architecture: backend/sql/queries/assessments.sql
 	CreateCommitAssessment(ctx context.Context, arg CreateCommitAssessmentParams) (CommitAssessment, error)
@@ -24,6 +27,7 @@ type Querier interface {
 	// Purpose: Chat messages queries for Socratic tutoring sessions.
 	// Architecture: backend/sql/queries/messages.sql
 	CreateMessage(ctx context.Context, arg CreateMessageParams) (Message, error)
+	CreateRecallReview(ctx context.Context, arg CreateRecallReviewParams) (RecallReview, error)
 	// Purpose: Socratic learning sessions state queries.
 	// Architecture: backend/sql/queries/sessions.sql
 	CreateSession(ctx context.Context, arg CreateSessionParams) (LearningSession, error)
@@ -34,15 +38,22 @@ type Querier interface {
 	// Architecture: backend/sql/queries/vocab_entries.sql
 	CreateVocabEntry(ctx context.Context, arg CreateVocabEntryParams) (VocabEntry, error)
 	DeleteVocabEntry(ctx context.Context, arg DeleteVocabEntryParams) error
+	EnsureSchedulesForUser(ctx context.Context, userID uuid.UUID) error
+	FilterVocabEntries(ctx context.Context, arg FilterVocabEntriesParams) ([]VocabEntry, error)
 	GetActiveSessionByWord(ctx context.Context, arg GetActiveSessionByWordParams) (LearningSession, error)
 	GetCommitAssessmentBySession(ctx context.Context, sessionID uuid.UUID) (CommitAssessment, error)
 	GetDefinitionSnapshotByHash(ctx context.Context, arg GetDefinitionSnapshotByHashParams) (DefinitionSnapshot, error)
 	GetDefinitionSnapshotByID(ctx context.Context, id uuid.UUID) (DefinitionSnapshot, error)
+	// Purpose: Spaced repetition (SRS) queries for due words, schedule updates, and review audits.
+	// Architecture: backend/sql/queries/recall.sql
+	GetDueRecallEntries(ctx context.Context, arg GetDueRecallEntriesParams) ([]GetDueRecallEntriesRow, error)
 	// Purpose: Idempotency key tracking queries for safe retries of mutating requests.
 	// Architecture: backend/sql/queries/idempotency.sql
 	GetIdempotencyKey(ctx context.Context, arg GetIdempotencyKeyParams) (IdempotencyKey, error)
 	GetLastMessageSeq(ctx context.Context, sessionID uuid.UUID) (int32, error)
 	GetNextRevisionNo(ctx context.Context, entryID uuid.UUID) (int32, error)
+	GetRecallSchedule(ctx context.Context, arg GetRecallScheduleParams) (RecallSchedule, error)
+	GetReviewHistoryForEntry(ctx context.Context, arg GetReviewHistoryForEntryParams) ([]RecallReview, error)
 	GetSessionByID(ctx context.Context, arg GetSessionByIDParams) (LearningSession, error)
 	GetUserByEmail(ctx context.Context, email string) (User, error)
 	GetUserByID(ctx context.Context, id uuid.UUID) (User, error)
@@ -54,12 +65,14 @@ type Querier interface {
 	ListMessagesBySession(ctx context.Context, sessionID uuid.UUID) ([]Message, error)
 	ListRecentSessionsByUser(ctx context.Context, arg ListRecentSessionsByUserParams) ([]LearningSession, error)
 	ListVocabEntries(ctx context.Context, arg ListVocabEntriesParams) ([]VocabEntry, error)
+	ResumeSession(ctx context.Context, arg ResumeSessionParams) (LearningSession, error)
 	SearchVocabEntries(ctx context.Context, arg SearchVocabEntriesParams) ([]VocabEntry, error)
 	SoftDeleteUser(ctx context.Context, id uuid.UUID) error
 	UpdateIdempotencyResponse(ctx context.Context, arg UpdateIdempotencyResponseParams) (IdempotencyKey, error)
 	UpdateSessionLastActive(ctx context.Context, arg UpdateSessionLastActiveParams) (LearningSession, error)
 	UpdateSessionStatus(ctx context.Context, arg UpdateSessionStatusParams) (LearningSession, error)
 	UpdateVocabEntryPersonal(ctx context.Context, arg UpdateVocabEntryPersonalParams) (VocabEntry, error)
+	UpsertRecallSchedule(ctx context.Context, arg UpsertRecallScheduleParams) (RecallSchedule, error)
 }
 
 var _ Querier = (*Queries)(nil)

@@ -42,6 +42,16 @@ WHERE user_id = $1
 ORDER BY created_at DESC
 LIMIT $2 OFFSET $3;
 
+-- name: FilterVocabEntries :many
+SELECT * FROM vocab_entries
+WHERE user_id = $1
+  AND (sqlc.narg('part_of_speech')::TEXT IS NULL OR part_of_speech = sqlc.narg('part_of_speech'))
+  AND (sqlc.narg('understanding_flag')::TEXT IS NULL OR understanding_flag = sqlc.narg('understanding_flag'))
+  AND (sqlc.narg('start_date')::TIMESTAMPTZ IS NULL OR created_at >= sqlc.narg('start_date'))
+  AND (sqlc.narg('end_date')::TIMESTAMPTZ IS NULL OR created_at <= sqlc.narg('end_date'))
+ORDER BY created_at DESC
+LIMIT $2 OFFSET $3;
+
 -- name: SearchVocabEntries :many
 SELECT * FROM vocab_entries
 WHERE user_id = $1

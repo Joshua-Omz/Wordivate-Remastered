@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1489.93025 1359.45" width="1489.93025" height="1359.45" style="--bg:#1F1F1F;--fg:#CCCCCC;--line:#CCCCCC;--accent:#0078D4;--muted:#CCCCCCCC;--surface:#181818;--border:#CCCCCC;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="seq-arrow" markerWidth="8" markerHeight="5" refX="8" refY="2.5" orient="auto-start-reverse">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" />
+  </marker>
+  <marker id="seq-arrow-open" markerWidth="8" markerHeight="5" refX="8" refY="2.5" orient="auto-start-reverse">
+    <polyline points="0 0, 8 2.5, 0 5" fill="none" stroke="var(--_arrow)" stroke-width="1" />
+  </marker>
+</defs>
+<g class="block" data-type="alt" data-label="Active Session Exists">
+  <rect x="43.290249999999936" y="825.45" width="1416.6399999999999" height="484" rx="0" ry="0" fill="none" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="43.290249999999936" y="825.45" width="151.62999999999997" height="18" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="49.290249999999936" y="834.45" font-size="11" font-weight="600" fill="var(--_text-sec)" dy="3.8499999999999996">alt [Active Session Exists]</text>
+  <line x1="43.290249999999936" y1="1021.45" x2="1459.93025" y2="1021.45" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+  <text x="51.290249999999936" y="1035.45" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">[No Active Session]</text>
+</g>
+<line class="lifeline" data-actor="Client" x1="106.94474999999994" y1="92.45" x2="106.94474999999994" y2="1329.45" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Hdl" x1="302.7892499999999" y1="70" x2="302.7892499999999" y2="1329.45" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Svc" x1="547.1692499999998" y1="70" x2="547.1692499999998" y2="1329.45" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Dict" x1="797.4772499999998" y1="70" x2="797.4772499999998" y2="1329.45" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Repo" x1="1064.8282499999998" y1="70" x2="1064.8282499999998" y2="1329.45" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="DB" x1="1336.9957499999998" y1="70" x2="1336.9957499999998" y2="1329.45" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<g class="message" data-from="Client" data-to="Hdl" data-label="GET /v1/words/lookup?word=ephemeral" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="106.94474999999994" y1="112.45" x2="302.7892499999999" y2="112.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="204.86699999999993" y="102.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">GET /v1/words/lookup?word=ephemeral</text>
+</g>
+<g class="message" data-from="Hdl" data-to="Svc" data-label="LookupWord(ctx, &quot;ephemeral&quot;)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="302.7892499999999" y1="152.45" x2="547.1692499999998" y2="152.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="424.97924999999987" y="142.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">LookupWord(ctx, &quot;ephemeral&quot;)</text>
+</g>
+<g class="message" data-from="Svc" data-to="Dict" data-label="FetchDefinition(ctx, &quot;ephemeral&quot;)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="207.45" x2="797.4772499999998" y2="207.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="672.3232499999998" y="197.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">FetchDefinition(ctx, &quot;ephemeral&quot;)</text>
+</g>
+<g class="message" data-from="Dict" data-to="Svc" data-label="DefinitionResult (Meanings, Senses, RawJSON)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="797.4772499999998" y1="247.45" x2="547.1692499999998" y2="247.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="672.3232499999998" y="237.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">DefinitionResult (Meanings, Senses, RawJSON)</text>
+</g>
+<g class="message" data-from="Svc" data-to="Repo" data-label="GetOrCreateSnapshot(headword, source, payload, hash)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="302.45" x2="1064.8282499999998" y2="302.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="805.9987499999997" y="292.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">GetOrCreateSnapshot(headword, source, payload, hash)</text>
+</g>
+<g class="message" data-from="Repo" data-to="DB" data-label="q.CreateDefinitionSnapshot(...)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="1064.8282499999998" y1="342.45" x2="1336.9957499999998" y2="342.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="332.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">q.CreateDefinitionSnapshot(...)</text>
+</g>
+<g class="message" data-from="DB" data-to="Repo" data-label="DefinitionSnapshot record" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1336.9957499999998" y1="382.45" x2="1064.8282499999998" y2="382.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="372.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">DefinitionSnapshot record</text>
+</g>
+<g class="message" data-from="Repo" data-to="Svc" data-label="Domain DefinitionSnapshot (UUID)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1064.8282499999998" y1="422.45" x2="547.1692499999998" y2="422.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="805.9987499999997" y="412.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Domain DefinitionSnapshot (UUID)</text>
+</g>
+<g class="message" data-from="Svc" data-to="Hdl" data-label="LookupResponse (senses, phonetic, snapshot_id)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="462.45" x2="302.7892499999999" y2="462.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="424.97924999999987" y="452.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">LookupResponse (senses, phonetic, snapshot_id)</text>
+</g>
+<g class="message" data-from="Hdl" data-to="Client" data-label="HTTP 200 OK (JSON)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="302.7892499999999" y1="502.45" x2="106.94474999999994" y2="502.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="204.86699999999993" y="492.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">HTTP 200 OK (JSON)</text>
+</g>
+<g class="message" data-from="Client" data-to="Hdl" data-label="POST /v1/sessions {&quot;word_text&quot;:&quot;ephemeral&quot;, &quot;context_note&quot;:&quot;reading book&quot;}" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="106.94474999999994" y1="557.45" x2="302.7892499999999" y2="557.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="204.86699999999993" y="547.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">POST /v1/sessions {&quot;word_text&quot;:&quot;ephemeral&quot;, &quot;context_note&quot;:&quot;reading book&quot;}</text>
+</g>
+<g class="message" data-from="Hdl" data-to="Svc" data-label="StartSession(ctx, userID, req)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="302.7892499999999" y1="597.45" x2="547.1692499999998" y2="597.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="424.97924999999987" y="587.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">StartSession(ctx, userID, req)</text>
+</g>
+<g class="message" data-from="Svc" data-to="Repo" data-label="GetExistingEntriesByWord(ctx, userID, &quot;ephemeral&quot;)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="637.45" x2="1064.8282499999998" y2="637.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="805.9987499999997" y="627.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">GetExistingEntriesByWord(ctx, userID, &quot;ephemeral&quot;)</text>
+</g>
+<g class="message" data-from="Repo" data-to="DB" data-label="q.GetVocabEntriesByWord(...)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="1064.8282499999998" y1="677.45" x2="1336.9957499999998" y2="677.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="667.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">q.GetVocabEntriesByWord(...)</text>
+</g>
+<g class="message" data-from="DB" data-to="Repo" data-label="[]VocabEntry (Check for duplicates)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1336.9957499999998" y1="717.45" x2="1064.8282499999998" y2="717.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="707.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">[]VocabEntry (Check for duplicates)</text>
+</g>
+<g class="message" data-from="Svc" data-to="Repo" data-label="GetActiveSessionForWord(ctx, userID, &quot;ephemeral&quot;)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="757.45" x2="1064.8282499999998" y2="757.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="805.9987499999997" y="747.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">GetActiveSessionForWord(ctx, userID, &quot;ephemeral&quot;)</text>
+</g>
+<g class="message" data-from="Repo" data-to="DB" data-label="q.GetActiveSessionByWord(...)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="1064.8282499999998" y1="797.45" x2="1336.9957499999998" y2="797.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="787.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">q.GetActiveSessionByWord(...)</text>
+</g>
+<g class="message" data-from="DB" data-to="Repo" data-label="Active Session" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1336.9957499999998" y1="865.45" x2="1064.8282499999998" y2="865.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="855.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Active Session</text>
+</g>
+<g class="message" data-from="Repo" data-to="Svc" data-label="Domain LearningSession" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1064.8282499999998" y1="905.45" x2="547.1692499999998" y2="905.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="805.9987499999997" y="895.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Domain LearningSession</text>
+</g>
+<g class="message" data-from="Svc" data-to="Hdl" data-label="StartSessionResponse (is_resumed: true)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="945.45" x2="302.7892499999999" y2="945.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="424.97924999999987" y="935.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">StartSessionResponse (is_resumed: true)</text>
+</g>
+<g class="message" data-from="Hdl" data-to="Client" data-label="HTTP 200 OK" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="302.7892499999999" y1="985.45" x2="106.94474999999994" y2="985.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="204.86699999999993" y="975.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">HTTP 200 OK</text>
+</g>
+<g class="message" data-from="DB" data-to="Repo" data-label="sql.ErrNoRows (ErrNotFound)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1336.9957499999998" y1="1049.45" x2="1064.8282499999998" y2="1049.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="1039.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">sql.ErrNoRows (ErrNotFound)</text>
+</g>
+<g class="message" data-from="Svc" data-to="Repo" data-label="CreateSession(ctx, params...)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="1089.45" x2="1064.8282499999998" y2="1089.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="805.9987499999997" y="1079.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">CreateSession(ctx, params...)</text>
+</g>
+<g class="message" data-from="Repo" data-to="DB" data-label="q.CreateSession(...)" data-line-style="solid" data-arrow-head="filled" data-self="false">
+  <line x1="1064.8282499999998" y1="1129.45" x2="1336.9957499999998" y2="1129.45" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="1119.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">q.CreateSession(...)</text>
+</g>
+<g class="message" data-from="DB" data-to="Repo" data-label="New LearningSession (status='active')" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1336.9957499999998" y1="1169.45" x2="1064.8282499999998" y2="1169.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="1200.9119999999998" y="1159.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">New LearningSession (status=&#39;active&#39;)</text>
+</g>
+<g class="message" data-from="Repo" data-to="Svc" data-label="Domain LearningSession" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="1064.8282499999998" y1="1209.45" x2="547.1692499999998" y2="1209.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="805.9987499999997" y="1199.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Domain LearningSession</text>
+</g>
+<g class="message" data-from="Svc" data-to="Hdl" data-label="StartSessionResponse (is_resumed: false)" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="547.1692499999998" y1="1249.45" x2="302.7892499999999" y2="1249.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="424.97924999999987" y="1239.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">StartSessionResponse (is_resumed: false)</text>
+</g>
+<g class="message" data-from="Hdl" data-to="Client" data-label="HTTP 201 Created" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+  <line x1="302.7892499999999" y1="1289.45" x2="106.94474999999994" y2="1289.45" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <text x="204.86699999999993" y="1279.45" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">HTTP 201 Created</text>
+</g>
+<g class="note" data-position="over" data-actors="Svc">
+  <polygon points="429.8002499999998,160.45 658.5382499999998,160.45 664.5382499999998,166.45 664.5382499999998,183.45 429.8002499999998,183.45" fill="var(--bg)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <polygon points="658.5382499999998,160.45 664.5382499999998,166.45 658.5382499999998,166.45" fill="var(--_inner-stroke)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="547.1692499999998" y="171.95" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Normalization: trim, lowercase, length checks</text>
+</g>
+<g class="note" data-position="over" data-actors="Svc">
+  <polygon points="446.72924999999987,255.45 641.6092499999999,255.45 647.6092499999999,261.45 647.6092499999999,278.45 446.72924999999987,278.45" fill="var(--bg)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <polygon points="641.6092499999999,255.45 647.6092499999999,261.45 641.6092499999999,261.45" fill="var(--_inner-stroke)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="547.1692499999999" y="266.95" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Compute SHA-256 digest of RawJSON</text>
+</g>
+<g class="note" data-position="over" data-actors="Client,DB">
+  <polygon points="575.4952499999999,510.45 862.4452499999998,510.45 868.4452499999998,516.45 868.4452499999998,533.45 575.4952499999999,533.45" fill="var(--bg)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <polygon points="862.4452499999998,510.45 868.4452499999998,516.45 862.4452499999998,516.45" fill="var(--_inner-stroke)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="721.9702499999999" y="521.95" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">2. Socratic Session Initialization (Deduplication &amp; Resume)</text>
+</g>
+<g class="actor" data-id="Client" data-label="Flutter Client" data-type="actor">
+  <g transform="translate(88.94474999999994,32) scale(1.5)">
+    <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10Z" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+    <path d="M5.62842 18.3563C7.08963 17.0398 9.39997 16 12 16C14.6 16 16.9104 17.0398 18.3716 18.3563" fill="none" stroke="var(--_line)" stroke-width="0.6666666666666666" />
+  </g>
+  <text x="106.94474999999994" y="84" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Flutter Client</text>
+</g>
+<g class="actor" data-id="Hdl" data-label="Capture Handler (handler.go)" data-type="participant">
+  <rect x="200.59924999999996" y="30" width="204.37999999999994" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="302.7892499999999" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Capture Handler (handler.go)</text>
+</g>
+<g class="actor" data-id="Svc" data-label="Capture Service (service.go)" data-type="participant">
+  <rect x="444.97924999999987" y="30" width="204.37999999999994" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="547.1692499999998" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Capture Service (service.go)</text>
+</g>
+<g class="actor" data-id="Dict" data-label="Dictionary Client (dictionary.go)" data-type="participant">
+  <rect x="689.3592499999999" y="30" width="216.23599999999993" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="797.4772499999998" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Dictionary Client (dictionary.go)</text>
+</g>
+<g class="actor" data-id="Repo" data-label="Capture Repository (repository.go)" data-type="participant">
+  <rect x="945.5952499999999" y="30" width="238.46599999999995" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1064.8282499999998" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Capture Repository (repository.go)</text>
+</g>
+<g class="actor" data-id="DB" data-label="Data Access (sqlc / PostgreSQL)" data-type="participant">
+  <rect x="1224.0612499999997" y="30" width="225.86899999999997" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1336.9957499999998" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Data Access (sqlc / PostgreSQL)</text>
+</g>
+</svg>

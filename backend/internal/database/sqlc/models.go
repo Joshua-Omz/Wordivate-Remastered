@@ -74,6 +74,25 @@ type Message struct {
 	CreatedAt  time.Time     `json:"created_at"`
 }
 
+type RecallReview struct {
+	ID         uuid.UUID `json:"id"`
+	EntryID    uuid.UUID `json:"entry_id"`
+	UserID     uuid.UUID `json:"user_id"`
+	Rating     int32     `json:"rating"`
+	ReviewedAt time.Time `json:"reviewed_at"`
+}
+
+type RecallSchedule struct {
+	EntryID         uuid.UUID    `json:"entry_id"`
+	UserID          uuid.UUID    `json:"user_id"`
+	IntervalDays    int32        `json:"interval_days"`
+	EaseFactor      float64      `json:"ease_factor"`
+	RepetitionCount int32        `json:"repetition_count"`
+	NextReviewAt    time.Time    `json:"next_review_at"`
+	LastReviewedAt  sql.NullTime `json:"last_reviewed_at"`
+	CreatedAt       time.Time    `json:"created_at"`
+}
+
 type User struct {
 	ID           uuid.UUID      `json:"id"`
 	Email        string         `json:"email"`
